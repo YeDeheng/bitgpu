@@ -1,0 +1,11 @@
+set terminal pdf 
+set xtics nomirror
+set ytics nomirror
+
+set ylabel 'area cost (quality)'
+set xlabel 'time (ms)'
+
+plot \
+    'level1_satur_quality_time_asa.dat' using 1:2 with lines lw 3 lc 1 lt 1 title "level1_satur-ASA", \
+    'level1_satur_quality_time_mc.dat' using 1:2 with lines lw 3 lc 7 lt 2 title "level1_satur-raw MC" ;
+

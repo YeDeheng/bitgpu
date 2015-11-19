@@ -1,0 +1,168 @@
+		ADAPTIVE SIMULATED ANNEALING
+
+/* $Id: asa.c,v 29.6 2013/10/19 21:31:00 ingber Exp ingber $ */
+
+OPTIONS_FILE = 1
+OPTIONS_FILE_DATA = 1
+RECUR_OPTIONS_FILE = 0
+RECUR_OPTIONS_FILE_DATA = 0
+COST_FILE = 1
+ASA_LIB = 0
+HAVE_ANSI = 1
+IO_PROTOTYPES = 0
+TIME_CALC = 0
+TIME_STD = 0
+TIME_GETRUSAGE = 1
+INT_LONG = 1
+INT_ALLOC = 0
+SMALL_FLOAT =        1e-18
+MIN_DOUBLE =        1e-18
+MAX_DOUBLE =        1e+18
+EPS_DOUBLE =        1e-18
+CHECK_EXPONENT = 0
+NO_PARAM_TEMP_TEST = 0
+NO_COST_TEMP_TEST = 0
+SELF_OPTIMIZE = 0
+ASA_TEST = 0
+ASA_TEST_POINT = 0
+ASA_EXIT_ANYTIME = 0
+ASA_TEMPLATE = 0
+MY_TEMPLATE = 1
+ASA_TEMPLATE_LIB = 0
+ASA_TEMPLATE_ASA_OUT_PID = 0
+ASA_TEMPLATE_MULTIPLE = 0
+ASA_TEMPLATE_SELFOPT = 0
+ASA_TEMPLATE_SAMPLE = 0
+ASA_TEMPLATE_QUEUE = 0
+ASA_TEMPLATE_PARALLEL = 0
+ASA_TEMPLATE_SAVE = 0
+USER_INITIAL_COST_TEMP = 0
+RATIO_TEMPERATURE_SCALES = 0
+USER_INITIAL_PARAMETERS_TEMPS = 0
+DELTA_PARAMETERS = 0
+QUENCH_PARAMETERS = 0
+QUENCH_COST = 0
+QUENCH_PARAMETERS_SCALE = 1
+QUENCH_COST_SCALE = 1
+OPTIONAL_DATA_DBL = 0
+OPTIONAL_DATA_INT = 0
+OPTIONAL_DATA_PTR = 0
+USER_COST_SCHEDULE = 0
+USER_ACCEPT_ASYMP_EXP = 0
+USER_ACCEPT_THRESHOLD = 0
+USER_ACCEPTANCE_TEST = 0
+USER_GENERATING_FUNCTION = 0
+USER_REANNEAL_COST = 0
+USER_REANNEAL_PARAMETERS = 0
+MAXIMUM_REANNEAL_INDEX = 50000
+REANNEAL_SCALE =           10
+ASA_SAMPLE = 0
+ADAPTIVE_OPTIONS = 0
+ASA_QUEUE = 0
+ASA_RESOLUTION = 0
+ASA_FUZZY = 0
+FITLOC = 0
+FITLOC_ROUND = 1
+FITLOC_PRINT = 1
+MULTI_MIN = 0
+ASA_PARALLEL = 0
+FDLIBM_POW = 0
+FDLIBM_LOG = 0
+FDLIBM_EXP = 0
+
+ASA_PRINT = 1
+USER_OUT = asa_usr_out
+ASA_OUT = asa_out
+USER_ASA_OUT = 0
+USER_ASA_USR_OUT = 0
+ASA_PRINT_INTERMED = 1
+ASA_PRINT_MORE = 0
+INCL_STDOUT = 1
+G_FIELD = 12
+G_PRECISION = 7
+ASA_SAVE = 0
+ASA_SAVE_OPT = 0
+ASA_SAVE_BACKUP = 0
+ASA_PIPE = 0
+ASA_PIPE_FILE = 0
+SYSTEM_CALL = 1
+
+OPTIONS->Limit_Acceptances = 10000
+OPTIONS->Limit_Generated = 10
+OPTIONS->Limit_Invalid_Generated_States = 100000000
+OPTIONS->Accepted_To_Generated_Ratio =       0.0001
+
+OPTIONS->Cost_Precision =        1e-18
+OPTIONS->Maximum_Cost_Repeat = 5
+OPTIONS->Number_Cost_Samples = 5
+OPTIONS->Temperature_Ratio_Scale =        1e-05
+OPTIONS->Cost_Parameter_Scale_Ratio =            1
+OPTIONS->Temperature_Anneal_Scale =          100
+OPTIONS->Include_Integer_Parameters = 0
+OPTIONS->User_Initial_Parameters = 0
+OPTIONS->Sequential_Parameters = -1
+OPTIONS->Initial_Parameter_Temperature =            1
+OPTIONS->Acceptance_Frequency_Modulus = 100
+OPTIONS->Generated_Frequency_Modulus = 10000
+OPTIONS->Reanneal_Cost = 1
+OPTIONS->Reanneal_Parameters = 1
+
+OPTIONS->Delta_X =        0.001
+OPTIONS->User_Tangents = 0
+OPTIONS->Curvature_0 = 0
+OPTIONS->Asa_Recursive_Level = 0
+
+
+Initial Random Seed = 40679
+
+*number_parameters = 15
+
+index_v parameter_minimum parameter_maximum parameter_value parameter_type 
+ 0        25           		 31           	 31           1      
+ 1        24           		 31           	 31           1      
+ 2        23           		 31           	 31           1      
+ 3        22           		 31           	 31           1      
+ 4        8            		 8            	 8            1      
+ 5        25           		 31           	 31           1      
+ 6        25           		 31           	 31           1      
+ 7        21           		 31           	 31           1      
+ 8        24           		 31           	 31           1      
+ 9        24           		 31           	 31           1      
+ 10       21           		 31           	 31           1      
+ 11       24           		 31           	 31           1      
+ 12       24           		 31           	 31           1      
+ 13       0            		 28           	 28           1      
+ 14       21           		 21           	 21           1      
+
+
+temperature_scale =     8.078664
+temperature_scale_parameters[0] =     8.078664
+*temperature_scale_cost =     8.078664
+
+
+
+*index_cost_acceptances = 0, *current_cost_temperature =       4054.4
+*accepted_to_generated_ratio =            1, *number_invalid... = 0
+*number_generated = 0, *number_accepted = 0
+best...->cost =         3806, last...->cost =         3806
+index_v  best...->parameter current_parameter_temp	tangent
+0	          31		           1	           0
+1	          25		           1	           0
+2	          26		           1	           0
+3	          22		           1	           0
+4	           8		           1	           0
+5	          31		           1	           0
+6	          26		           1	           0
+7	          27		           1	           0
+8	          31		           1	           0
+9	          30		           1	           0
+10	          24		           1	           0
+11	          29		           1	           0
+12	          24		           1	           0
+13	          27		           1	           0
+14	          21		           1	           0
+
+
+best...->cost=3631          *number_accepted=1  *number_generated=1
+best...->cost=3630          *number_accepted=2  *number_generated=2
+best...->cost=3591          *number_accepted=3  *number_generated=3

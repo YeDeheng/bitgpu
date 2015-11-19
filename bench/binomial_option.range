@@ -1,0 +1,5 @@
+StockPrice, 20, 25
+OptionStrike, 25, 30
+TimePeriod, 0.2, 0.2
+vol, 0.1, 0.1
+risk, 0.06, 0.06

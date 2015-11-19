@@ -1,0 +1,7 @@
+*.o
+bin/*
+data/*
+*.gimple
+*.bak
+*.g
+*.tmp

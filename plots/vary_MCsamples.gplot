@@ -1,0 +1,33 @@
+# Command: gnuplot level1_linear_area.gplot > level1_linear_area.eps
+
+set term postscript eps enhanced
+set size 0.8,0.6
+set xtics nomirror # rotate by -30
+set ytics nomirror
+#set y2tics nomirror
+#set grid
+#set key top outside horizontal 
+
+set ylabel 'Monte-carlo runtime(ms)'
+#set y2label 'FPGA area (DSPs)'
+set xlabel 'space size: pow(N,6)  z=a*b+c-b'
+#set logscale x
+#set logscale y
+#set xrange [16:90]
+#set yrange [550:880]
+#set y2range [20:30]
+#set xtics 0,32,1024
+#set format y "10^{%T}"
+
+#set arrow from 70,100 to 61,0.0059 head nofilled ;
+#set label "crossover" at 60,500;
+#set arrow from 64,100 to 60,0.0176 head nofilled lc rgb "red";
+#set label "crossover" at 50,1e3 tc lt 1;
+#using 2:xticlabels(1)
+#set datafile separator ";"
+
+plot \
+    'compare_mc_bf.dat' using 2:3 with linespoints lw 3 lc 7 lt 1 pt 2 ps 0.8 title "bit-slice", \
+    'compare_mc_bf.dat' using 2:4 with linespoints lw 3 lc 2 lt 2 pt 3 ps 0.8 title "pure MC";
+    #    'level1_satur.g_crossover.dat' using 1:2 with lines lw 3 lc 1 lt 2 title 'level1\_satur\_fx', \
+ #   'level1_satur.g_crossover.dat' using 1:3 with lines lw 3 lc 1 lt 2 title 'level1\_satur\_dbl', \
