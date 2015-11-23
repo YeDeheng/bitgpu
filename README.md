@@ -7,13 +7,12 @@ To use the code, please install and configure:
 
 ##### User guide
 1. Compile the GPU code and ASA code:
-
 ```sh
     $ ./make
     $ cd ./asa
     $ ./make
 ```
-2. Compile the C-style benchmarks into DFG-style assemby code using gcc's GIMPLE backend:
+2. Compile the C-style benchmarks into DFG-style assembly code using gcc's GIMPLE backend:
 ```sh
     $ ./prep_bench.sh
 ```
