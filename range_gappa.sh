@@ -3,9 +3,10 @@
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib
 
 rm -f ./data/range_gappa.dat
-pushd scripts
+pushd scripts > /dev/null
 #for DESIGN in iir8 deriche gaussian sobel
-for DESIGN in poly poly6 diode level1_linear level1_satur approx1 approx2 poly8 caprasse bellido sobel gaussian
+echo "design,splits,runtime(us)"
+for DESIGN in poly #poly6 diode level1_linear level1_satur approx1 approx2 poly8 caprasse bellido sobel gaussian
 do
 	for SPLITS in 1 8 16 32 64 128 256 512 1024 2048 4096 8192
 	do
@@ -17,4 +18,4 @@ do
 		echo $DESIGN,$SPLITS,$runtime >> ../data/range_gappa.dat | cat
 	done
 done
-popd
+popd  > /dev/null
