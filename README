@@ -1,3 +1,7 @@
+Install Gappa and CUDA first. 
+
+We use CUDA-7.5 and a modified version of Gappa. 
+
 # Interval GPU Project
 #
 #
