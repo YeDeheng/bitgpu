@@ -1,12 +1,14 @@
-This repository provides the source code of BitGPU, which is implemented in Ubuntu 14.04 
+BitGPU is implemented in Ubuntu 14.04.  
 
 ##### Prerequisites 
-To use the code, you have to download and install: 
-- [Nvidia CUDA-7.5](https://developer.nvidia.com/cuda-downloads). Our code works with CUDA version 7.5. We have not tested other CUDA versions. 
-- A modified version of [Gappa++](https://github.com/YeDeheng/gappa), a tool for veryfying numerical properties. 
+To use the code, please install and configure: 
+- [Nvidia CUDA-7.5](https://developer.nvidia.com/cuda-downloads). Our code works with CUDA version 7.5. We have not tested other versions. 
+- A modified version of [Gappa++](https://github.com/YeDeheng/gappa), a tool for verifying numerical properties. 
 
 ##### User guide
 
-### Adding your own benchmarks
+
+##### Developer guide 
+###### Adding your own benchmarks
 
 
