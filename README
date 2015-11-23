@@ -2,13 +2,3 @@ Install Gappa and CUDA first.
 
 We use CUDA-7.5 and a modified version of Gappa. 
 
-# Interval GPU Project
-#
-#
-# For image and finance benchmarks, such as Sobel, DCT, Gaussian Blur, see CUDA official sample documents as reference. 
-
-
-1. First run prep_bench.sh whenever you add new benchmarks
-2. We should run range.sh and prune.sh to get range and bitwidth limits for the benchmarks.
-
-0. stuff.sh and sizes.sh prepare data to be used for plotting -- they calculate benchmark paramters.
