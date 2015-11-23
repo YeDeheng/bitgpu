@@ -1,11 +1,11 @@
 BitGPU is implemented in Ubuntu 14.04.
 
-##### Prerequisites
+#### Prerequisites
 To use the code, please install and configure:
 - [Nvidia CUDA-7.5](https://developer.nvidia.com/cuda-downloads). Our code works with CUDA version 7.5. We have not tested other versions.
 - A modified version of [Gappa++](https://github.com/YeDeheng/gappa), a tool for verifying numerical properties.
 
-##### User guide
+#### User guide
 1. Compile the GPU code and ASA (adaptive simulated annealing) code:
 
     ```sh
@@ -42,9 +42,16 @@ To use the code, please install and configure:
     ```sh
     $ ./quality_time_bitslice.sh
     ```
-    
+
     - For medium-sized and large benchmarks:
 
     ```sh
     $ ./quality_time_hybrid.sh
     ```
+
+#### Adding new benchmarks
+We exemplify the concrete steps using a simple example. 
+Consider an adder benchmark named `add` which only consists of one operation `c=a+b`, where `a` and `b` are the input variables, and `c` is the output. 
+One has to hand code two files `add.c` and `add.range`, and put them under `./bench` folder.
+We have prepared these two files. One can refer to them for the coding syntax. `add.c` is a piece of C-style code, containing a function that returns the result of `a+b`. In `add.range`, we specify the ranges of input variables, with one variable one line. 
+After the benchmark `add` is written, one can add the benchmark name into those shell scripts mentioned above. 
