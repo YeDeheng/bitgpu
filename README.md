@@ -1,14 +1,12 @@
-## BitGPU: GPU-accelerated High-level Synthesis for Bitwidth Optimization of FPGA Datapaths ##
-### This repository provides the source code of BitGPU ###
+This repository provides the source code of BitGPU, which is implemented in Ubuntu 14.04 
 
-### Prerequisites ### 
-BitGPU is implemented in Ubuntu 14.04. 
+##### Prerequisites 
 To use the code, you have to download and install: 
-- [Nvidia CUDA-7.5]() . The code works with CUDA version 7.5. We have not tested other CUDA versions. 
-- A modified version of [Gappa++](), a tool for numerical 
+- [Nvidia CUDA-7.5](https://developer.nvidia.com/cuda-downloads). Our code works with CUDA version 7.5. We have not tested other CUDA versions. 
+- A modified version of [Gappa++](https://github.com/YeDeheng/gappa), a tool for veryfying numerical properties. 
 
-### Quick start ### 
+##### User guide
 
-### Adding your own benchmarks ### 
+### Adding your own benchmarks
 
 
