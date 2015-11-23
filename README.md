@@ -8,30 +8,29 @@ To use the code, please install and configure:
 ##### User guide
 1. Compile the GPU code and ASA code:
 
-```sh
+    ```sh
     $ ./make
     $ cd ./asa
     $ ./make
-```
+    ```
 
 2. Compile the C-style benchmarks into DFG-style assembly code using gcc's GIMPLE backend:
 
-```sh
+    ```sh
     $ ./prep_bench.sh
-```
+    ```
 3. Prune the search space for range analysis and bitwidth allocation:
 
-```sh
+    ```sh
     $ ./prune.sh
-```
+    ```
 
 4. To perform range analysis:
 
-```sh
+    ```sh
     $ ./range.sh    % this script invokes GPU range analysis, and calculates the GPU runtime.
     $ ./range_gappa.sh  % this script invokes Gappa range analysis running on the CPU, and calculates the CPU runtime, which is compared to the above GPU runtime.
-```
-
+    ```
 5. To perform bitwidth allocation:
   * For small benchmarks:
   * For medium-sized benchmarks:
