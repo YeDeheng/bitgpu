@@ -31,16 +31,20 @@ To use the code, please install and configure:
     $ ./range_gappa.sh  % this script invokes Gappa range analysis running on the CPU, and calculates the CPU runtime, which is compared to the above GPU runtime.
     ```
 5. To perform bitwidth allocation:
-  * Using ASA running on the CPU: 
+  * Using ASA running on the CPU:
+
     ```sh
     $ ./quality_time_asa.sh
     ```
   * Using GPU: 
     - For small benchmarks:
+
     ```sh
     $ ./quality_time_bitslice.sh
     ```
+    
     - For medium-sized and large benchmarks:
+
     ```sh
     $ ./quality_time_hybrid.sh
     ```
