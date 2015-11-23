@@ -6,12 +6,11 @@ To use the code, please install and configure:
 - A modified version of [Gappa++](https://github.com/YeDeheng/gappa), a tool for verifying numerical properties.
 
 ##### User guide
-1. Compile the GPU code and ASA code:
+1. Compile the GPU code and ASA (adaptive simulated annealing) code:
 
     ```sh
     $ ./make
-    $ cd ./asa
-    $ ./make
+    $ cd ./asa & make & cd ..
     ```
 
 2. Compile the C-style benchmarks into DFG-style assembly code using gcc's GIMPLE backend:
@@ -25,13 +24,23 @@ To use the code, please install and configure:
     $ ./prune.sh
     ```
 
-4. To perform range analysis:
+4. To perform range analysis on GPU and CPU:
 
     ```sh
     $ ./range.sh    % this script invokes GPU range analysis, and calculates the GPU runtime.
     $ ./range_gappa.sh  % this script invokes Gappa range analysis running on the CPU, and calculates the CPU runtime, which is compared to the above GPU runtime.
     ```
 5. To perform bitwidth allocation:
-  * For small benchmarks:
-  * For medium-sized benchmarks:
-  * For large benchmarks:
+  * Using ASA running on the CPU: 
+    ```sh
+    $ ./quality_time_asa.sh
+    ```
+  * Using GPU: 
+    - For small benchmarks:
+    ```sh
+    $ ./quality_time_bitslice.sh
+    ```
+    - For medium-sized and large benchmarks:
+    ```sh
+    $ ./quality_time_hybrid.sh
+    ```
