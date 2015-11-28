@@ -69,9 +69,9 @@ Let's assume that `a` and `b` are input integers with values `1` and `0.5`, resp
 
 while `c` is an input decimal with value `0.3`, i.e.,
     
-    ```cpp
-    c = 0.3
-    ```
+```cpp
+c = 0.3
+```
 
 In this case, `a` and `b` can be represented with no truncation or rounding errors using certain number of bits, as mentioned in our paper, while there will always be a rounding or truncation error when representing `c`. 
 
