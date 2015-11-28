@@ -85,7 +85,7 @@ We have prepared these two files. One can refer to them for the coding syntax. `
 
 In `poly3.range`, we specify the ranges of input variables, with one variable one line: 
     
-    ```cpp
+    ``` c++
     x,-1,1
     c,0.3,0.3
     ```
