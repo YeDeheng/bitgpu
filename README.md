@@ -9,7 +9,7 @@ To use the code, please install and configure:
 1. Compile the GPU code and ASA (adaptive simulated annealing) code:
 
     ```sh
-    $ ./make
+    $ make
     $ cd ./asa & make & cd ..
     ```
 
