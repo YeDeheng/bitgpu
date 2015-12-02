@@ -97,26 +97,26 @@ After the benchmark `poly3` is properly written, one can supply the benchmark na
 
 1. edit `prep_bench.sh` to make it look like: 
 
-``` sh
-for DESIGN in poly3
-do
-    pushd ./scripts
-    ./gimple_to_asm.sh ../bench/$DESIGN.c
-    popd
-done
-```
+  ``` sh
+  for DESIGN in poly3
+  do
+      pushd ./scripts
+      ./gimple_to_asm.sh ../bench/$DESIGN.c
+      popd
+  done
+  ```
 
-The script `gimple_to_asm.sh` generates GIMPLE and Assembly code for the poly3 function and puts them under `./data/poly3/`. 
+  The script `gimple_to_asm.sh` generates GIMPLE and Assembly code for the poly3 function and puts them under `./data/poly3/`. 
 
 2. Add the benchmark name `poly3` into `prune.sh`. Run `./prune.sh` to prune the search space of `poly3`, you are expected to see something similar to the following: 
 
-```
-benchmark:  poly3
-search space after pruning:  poly3  729
-```
+  ```
+  benchmark:  poly3
+  search space after pruning:  poly3  729
+  ```
 
 3. Add the benchmark name `poly3` into `range.sh` and `range_gappa.sh`, respectively. 
-Run `./range.sh`, which runs range analysis on the GPU, you are expected to see: 
+  Run `./range.sh`, which runs range analysis on the GPU, you are expected to see: 
 
 ```
 design,runtime(ms),block_size,intervals
@@ -213,9 +213,9 @@ poly3,0.064352,512,8192
 
 ```
 
-The `range.sh` script tries different GPU block_size, as we can see from the third column of the printings. The second column of the above printings refers to the GPU runtime in milliseconds. 
+  The `range.sh` script tries different GPU block_size, as we can see from the third column of the printings. The second column of the above printings refers to the GPU runtime in milliseconds. 
 
-Run `./range_gappa.sh`, which runs range analysis on the CPU, you are expected to see: 
+  Run `./range_gappa.sh`, which runs range analysis on the CPU, you are expected to see: 
 
 ```
 design,splits,runtime(us)
@@ -233,10 +233,10 @@ poly3,4096, 2000420
 poly3,8192, 4196468 
 ```
 
-As we can see, we are able to speed up range analysis significantly using GPUs.  
+  As we can see, we are able to speed up range analysis significantly using GPUs.  
 
 4. Add the benchmark name `poly3` into `quality_time_asa.sh` and `quality_time_bitslice.sh`, respectively. 
 
-Run `./quality_time_bitslice.sh`, which runs bitwidth allocation on the GPU. The result will be stored in file `./data/quality_time_bitslice_poly3.dat`, including both the runtime(ms) and the optimized bitwidth combination. For this `poly3` example, the runtime using GPU is `0.000126656 ms`. 
+  Run `./quality_time_bitslice.sh`, which runs bitwidth allocation on the GPU. The result will be stored in file `./data/quality_time_bitslice_poly3.dat`, including both the runtime(ms) and the optimized bitwidth combination. For this `poly3` example, the runtime using GPU is `0.000126656 ms`. 
 
-Run `./quality_time_asa.sh`, which runs bitwidth allocation on the CPU. The result will be stored in file `./data/quality_time_asa_poly3.dat`, including both the runtime(us) and the optimized bitwidth combination. For this `poly3` example, the runtime using CPU is `0.0141652 s`
+  Run `./quality_time_asa.sh`, which runs bitwidth allocation on the CPU. The result will be stored in file `./data/quality_time_asa_poly3.dat`, including both the runtime(us) and the optimized bitwidth combination. For this `poly3` example, the runtime using CPU is `0.0141652 s`
