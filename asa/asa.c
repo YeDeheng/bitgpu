@@ -2430,9 +2430,9 @@ RET1_asa:
 //	      if(search_space<=16777216) {
 //		      printf("Able to constrain search space within 2^24\n");
 //	      }
-//	      VFOR (index_v) {
-//		      std::cout << "PART " << parameter_minimum[index_v] << "," << best_generated_state->parameter[index_v] << std::endl;
-//	      }
+	      VFOR (index_v) {
+		      std::cout << "PART " << parameter_minimum[index_v] << "," << best_generated_state->parameter[index_v] << std::endl;
+	      }
 	      exit(0);
       }
 
