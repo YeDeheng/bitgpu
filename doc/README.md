@@ -1,3 +1,0 @@
-- `bitgpu.pdf` is our paper. 
-- `gappa++.pdf` introduces the gappa internal analysis tool, which is used in our tool release. 
-- The error modeling methods in our paper in built upon `haldar.pdf`
