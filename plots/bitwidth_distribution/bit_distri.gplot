@@ -1,8 +1,0 @@
-set terminal pdf
-# Select histogram data
-set style data histogram
-# Give the bars a plain fill pattern, and draw a solid line around them.
-set style fill solid border
-
-set style histogram clustered
-plot 'poly4_bitwidth_distri.dat.new' using 2:xticlabels(1) title "poly4_bit_distribution";
