@@ -1,4 +1,5 @@
-BitGPU is implemented in Ubuntu 14.04.
+BitGPU is implemented in Ubuntu 14.04. 
+BitGPU is released under the GNU General Public License (GPL). 
 
 #### Prerequisites
 To use the code, please install and configure:
@@ -48,6 +49,7 @@ To use the code, please install and configure:
     ```sh
     $ ./quality_time_hybrid.sh
     ```
+
 
 #### Adding new benchmarks
 We exemplify the concrete steps using a simple example. 
