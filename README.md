@@ -5,6 +5,7 @@ BitGPU is released under the GNU General Public License (GPL).
 To use the code, please install and configure:
 - [Nvidia CUDA-7.5](https://developer.nvidia.com/cuda-downloads). Our code works with CUDA version 7.5. We have not tested other versions.
 - A modified version of [Gappa++](https://github.com/YeDeheng/gappa), a tool for verifying numerical properties.
+- [Adaptive simulated annealing (ASA)](https://www.ingber.com/#ASA). 
 
 #### User Guide
 1. Compile the GPU code and ASA (adaptive simulated annealing) code:
