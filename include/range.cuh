@@ -1,6 +1,18 @@
 #ifndef RANGE_H_
 #define RANGE_H_
 
+/*
+ * Range Models for Interval Analysis
+ * Input: [x0, x1], [y0, y1] (lower and upper limits)
+ * Output: [ret0, ret1] (Resulting range limits)
+ * Method: Evaluate operation at all possible combinations of input variable limits.
+ *         e.g. single-input operator only requires two evaluations.
+ *         e.g. two-input operator may require four evaluations
+ *
+ * Shown in Figure 1 of FPGA 2016 paper
+ * "GPU-Accelerated High-Level Synthesis for Bitwidth Optimization of FPGA Datapaths"
+ *
+ */
 __forceinline__  __device__ void sqrt_rangerule(REAL x0, REAL x1, 
         REAL* ret0, REAL* ret1) {
     if(x0<0 || x1<0)

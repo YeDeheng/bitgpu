@@ -7,7 +7,7 @@
 #include <time.h>
 /* Self-defined Headers */
 #include "opcode.h"
-#include "peace.cuh"
+#include "bitgpu.cuh"
 #include "thrust/extrema.h"
 #include "asm.h"
 #include "histogram.cuh"

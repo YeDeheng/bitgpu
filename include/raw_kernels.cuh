@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <math.h>
 
+// Evaluate the kernels by themselves to identify parallel speedup potential
+// on GPUs and multi-threaded CPUs
+
+// run kernel LIMIT number of times
 #define LIMIT 1000
 
 enum model_type_t {RANGE=0, ERROR=1, AREA=2, RANDOM=3};

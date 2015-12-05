@@ -8,7 +8,7 @@
 #include "opcode.h"
 #include "asm.h"
 /* Host functions for pruning, device functions for range analysis */
-#include "peace.cuh"
+#include "bitgpu.cuh"
 #include "thrust/extrema.h"
 
 using namespace std;

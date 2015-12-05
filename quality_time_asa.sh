@@ -5,7 +5,6 @@ ERROR_THRESH=2e-4
 
 rm -f ./data/quality_time_asa.dat
 echo "bench,cost,time" > ./data/quality_time_asa.dat
-#for DESIGN in BlackScholes #binomial_option 
 for DESIGN in level1_linear poly diode bellido poly6 level1_saturation approx1 poly8 approx2 caprasse sobel gaussian 
 do
 	echo $DESIGN starting...

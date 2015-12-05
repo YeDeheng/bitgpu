@@ -2,13 +2,8 @@
 #include <math.h>
 
 #include "opcode.h"
-#include "peace.cuh"
-
-#ifdef USE_MC
-#include "mc_range.cuh"
-#else
+#include "bitgpu.cuh"
 #include "range.cuh"
-#endif
 
 
 __global__ void range(REAL *in_lo, REAL *in_hi, REAL *out_lo, REAL *out_hi, 

@@ -1,8 +1,20 @@
 #ifndef ERROR_H_
 #define ERROR_H_
 
-
-/* error models */
+/*
+ * Error Models
+ * Input: bitwidth x (for single-input operators)
+ *        bitwidths x1 and x2 (for two-input operators)
+ * Output: rete (Relative error of output)
+ * Method: Using models extracted from Gappa++ and Haldar paper.
+ *         The complexity in the multiplier model is special case evaluation
+ *         for multiplications with constants. 
+ *         Might be faster to define special function.
+ *
+ * Shown in Figure 1 of FPGA 2016 paper
+ * "GPU-Accelerated High-Level Synthesis for Bitwidth Optimization of FPGA Datapaths"
+ * 
+ */
 __device__ void sqrt_errrule(REAL& x0, REAL& x1, REAL& e1, const REAL &e3, REAL* rete) 
 {
     *rete = e1 / (sqrt(x0) + sqrt(x0+e1)) + e3;
@@ -26,11 +38,6 @@ __device__ void div_errrule(REAL& x0, REAL& x1, REAL& e1, REAL& y0, REAL& y1, RE
 __device__ void mult_errrule(REAL& x0, REAL& x1, REAL& e1, REAL& y0, REAL& y1, REAL& e2, REAL& e3, REAL* rete) 
 {
     REAL main_err = ((fabs(x1) > fabs(x0)) ? fabs(x1) : fabs(x0))*e2 + ((fabs(y1) > fabs(y0)) ? fabs(y1) : fabs(y0))*e1; 
-
-    //if (e1==0 || e2==0)
-    //    *rete = main_err;
-    //else 
-    //    *rete = main_err + e3 + e1*e2;
 
     if(fabs(x0-x1)<1e-30 && fabs(y0-y1)<1e-30)
     {
@@ -109,5 +116,8 @@ __device__ void sub_errrule(REAL& x0, REAL& x1, REAL& e1, REAL& y0, REAL& y1, RE
     else 
         *rete = e2 + e1;
 }
+
+// rules for other functions can be added here
+
 
 #endif

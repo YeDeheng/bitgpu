@@ -1,7 +1,18 @@
 #ifndef AREA_H_
 #define AREA_H_
 
-/* area models */
+/* 
+ * Area Models
+ * Input: bitwidth x (for single-input operators)
+ *        bitwidths x1 and x2 (for two-input operators)
+ * Output: area (Number of LUTs)
+ * Method: Regression fitting from HLS kernels for these operators mapped to ML605 board
+ * Bitwidth varied, resulting LUT counts recorded.
+ *
+ * Shown in Figure 1 of FPGA 2016 paper  (Page 3)
+ * "GPU-Accelerated High-Level Synthesis for Bitwidth Optimization of FPGA Datapaths"
+ *
+*/
 __forceinline__ __device__ float sqrt_area(int x) {
     float area = 20.041 * x + 2324.24;
     return area;

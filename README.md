@@ -1,11 +1,10 @@
-BitGPU is implemented in Ubuntu 14.04. 
 BitGPU is released under the GNU General Public License (GPL). 
 
 #### Prerequisites
 To use the code, please install and configure:
-- [Nvidia CUDA-7.5](https://developer.nvidia.com/cuda-downloads). Our code works with CUDA version 7.5. We have not tested other versions.
-- A modified version of [Gappa++](https://github.com/YeDeheng/gappa), a tool for verifying numerical properties.
-- [Adaptive simulated annealing (ASA)](https://www.ingber.com/#ASA). We have packaged ASA in our tool release.  
+- [Nvidia CUDA-7.5](https://developer.nvidia.com/cuda-downloads). Our code works has been confirmed to work with CUDA version 7.5 and tested on NVIDIA K20 GPU.
+- A modified version of [Gappa++](https://github.com/YeDeheng/gappa), a tool for verifying numerical properties. Strictly speaking, you do not need this, but if you want to confirm correctness of our bounds, you can try the tool. We have modified Gappa to support exp and log operations that should work for most cases but do not provide certificates of correctness for those operators.
+- [Adaptive simulated annealing (ASA)](https://www.ingber.com/#ASA). We have already packaged ASA in our tool release, so you do not need to download/configure it. In any case, we have modified ASA to suit our needs.  
 
 #### User Guide
 1. Compile the GPU code and ASA (adaptive simulated annealing) code:
@@ -20,32 +19,35 @@ To use the code, please install and configure:
     ```sh
     $ ./prep_bench.sh
     ```
-3. Prune the search space for range analysis and bitwidth allocation:
-
+3. Prune the search space for range analysis and bitwidth allocation. This corresponds to Algorithm 1 from FPGA 2016 paper "GPU-Accelerated High-Level Synthesis for Bitwidth Optimization of FPGA Datapaths":
     ```sh
     $ ./prune.sh
     ```
 
-4. To perform range analysis on GPU and CPU:
-
+4. To perform range analysis:
+  * Using Gappa running on CPU:
     ```sh
-    $ ./range.sh    % this script invokes GPU range analysis, and calculates the GPU runtime.
-    $ ./range_gappa.sh  % this script invokes Gappa range analysis running on the CPU, and calculates the CPU runtime, which is compared to the above GPU runtime.
+    $ ./range_gappa.sh  
     ```
+  * Using GPU-acceleration:
+    ```sh
+    $ ./range.sh    
+    ```
+
 5. To perform bitwidth allocation:
-  * Using ASA running on the CPU:
+  * Using ASA running on the CPU only (no GPU acceleration):
 
     ```sh
     $ ./quality_time_asa.sh
     ```
   * Using GPU: 
-    - For small benchmarks:
+    - For small benchmarks, you can simply brute-force all possible bitwidth combinations:
 
     ```sh
     $ ./quality_time_bitslice.sh
     ```
 
-    - For medium-sized and large benchmarks:
+    - For medium-sized and large benchmarks, you need to run ASA-assisted pruning first:
 
     ```sh
     $ ./quality_time_hybrid.sh
@@ -53,9 +55,8 @@ To use the code, please install and configure:
 
 #### Developer Guide
 
-In this developer guide, we show how to write your own benchmarks and how to hack the code. 
+In this brief developer guide, we show how to write your own benchmarks and how to hack the code. We show the concrete steps using a simple example. 
 
-We exemplify the concrete steps using a simple example. 
 Consider a 3-order polynomial benchmark named `poly3` which consists of the operation: 
     
 ``` c++
@@ -95,30 +96,34 @@ x,-1,1
 c,0.3,0.3
 ```
 
-After the benchmark `poly3` is properly written, one can supply the benchmark name into those `Shell scripts` mentioned above, and execute these scripts as mentioned. We show how to do these in detail as follows. 
+After the benchmark `poly3` is setup correctly, one can supply the benchmark name into those `Shell scripts` mentioned above, and execute these scripts as mentioned. We show how to do these in detail as follows. 
 
-1. edit `prep_bench.sh` to make it look like: 
+1. You can compile the benchmark into intermediate ASM form 
 
-  ``` sh
-  for DESIGN in poly3
-  do
-      pushd ./scripts
-      ./gimple_to_asm.sh ../bench/$DESIGN.c
-      popd
-  done
+  ```sh
+  pushd ./scripts
+  ./gimple_to_asm.sh ../bench/poly3.c
+  popd
   ```
 
-  The script `gimple_to_asm.sh` generates GIMPLE and Assembly code for the poly3 function and puts them under `./data/poly3/`. 
+  This generates GIMPLE and associate IR code for the poly3 function and puts them under `./data/poly3/`. 
 
-2. Add the benchmark name `poly3` into `prune.sh`. Run `./prune.sh` to prune the search space of `poly3`, you are expected to see something similar to the following: 
+2. Run the pruning step to prune the search space of `poly3` using the prune driver. You must supply your own error threshold as desired by your application and an upper-limit for bitwidth search to help guides the search process.
+  ```sh
+  /bin/prune_driver ./data/poly3/poly3.asm $ERROR_THRESH $UPPER_BOUND
+  ```
+
+Once executed, you should see something similar to the following: 
 
   ```
   benchmark:  poly3
   search space after pruning:  poly3  729
   ```
 
-3. Add the benchmark name `poly3` into `range.sh` and `range_gappa.sh`, respectively. 
-  Run `./range.sh`, which runs range analysis on the GPU, you are expected to see: 
+3. You can run range analysis to generate right interval bounds for your application. The GPU implementation runtime depends on the number of desired sub-intervals to be evaluated and the precise block configuration for a GPU mapping.
+  ```sh
+  ./bin/range_driver ./data/poly3/poly3.asm $SPLITS $BLOCKS
+  ```
 
   ```
   design,runtime(ms),block_size,intervals
@@ -136,30 +141,19 @@ After the benchmark `poly3` is properly written, one can supply the benchmark na
   poly3,0.064352,512,8192
   ```
 
-  The `range.sh` script tries different GPU block_size, as we can see from the third column of the printings. The second column of the above printings refers to the GPU runtime in milliseconds. 
+  The GPU block_size, shown in the third column of the stdout log is purely a runtime optimization and does not affect correctness. 
+  
+  For this `poly3` example, the fastest range analysis runtime using GPU is `?? ms`, while the runtime using CPU is `?? s`
 
-  Run `./range_gappa.sh`, which runs range analysis on the CPU, you are expected to see: 
-
+4. Finally run the bitwidth allocation algorithm. Again, you must provide your desired application-specific error threshold *$ERROR_THRESH* and the GPU block configuration *$BLOCKS*.
+  ```sh
+  ./bin/bitslice_driver ./data/poly3/poly3.asm $ERROR_THRESH 1 1 $BLOCKS
   ```
-  design,splits,runtime(us)
-  poly3,1, 1316 
-  poly3,8, 4228 
-  poly3,16, 7253 
-  poly3,32, 17120 
-  poly3,64, 25446 
-  poly3,128, 52716 
-  poly3,256, 108975 
-  poly3,512, 218961 
-  poly3,1024, 465178 
-  poly3,2048, 988430 
-  poly3,4096, 2000420 
-  poly3,8192, 4196468 
+ 
+  You may also run this purely on the CPU using ASA alone. Here, we first generate the C file that calculates error and cost for ASA and then compiles ASA customized for this problem instance. Then we run the ASA algorithm to generate resulting bitwidth.
+  ```sh
+  ./create_asa_opt.sh ../data/poly3/poly3.asm $ERROR_THRESH $UPPER_BOUND
+  ./asa_run ../data/poly3/poly3.asm $ERROR_THRESH 100000000
   ```
 
-  As we can see, we are able to speed up range analysis significantly using GPUs.  
-
-4. Add the benchmark name `poly3` into `quality_time_asa.sh` and `quality_time_bitslice.sh`, respectively. 
-
-  Run `./quality_time_bitslice.sh`, which runs bitwidth allocation on the GPU. The result will be stored in file `./data/quality_time_bitslice_poly3.dat`, including both the runtime(ms) and the optimized bitwidth combination. For this `poly3` example, the runtime using GPU is `0.000126656 ms`. 
-
-  Run `./quality_time_asa.sh`, which runs bitwidth allocation on the CPU. The result will be stored in file `./data/quality_time_asa_poly3.dat`, including both the runtime(us) and the optimized bitwidth combination. For this `poly3` example, the runtime using CPU is `0.0141652 s`
+  For this `poly3` example, the runtime using GPU is `0.000126656 ms`, while the runtime using CPU is `0.0141652 s`

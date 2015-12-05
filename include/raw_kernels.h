@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#define LIMIT 1
+#define LIMIT 100
 
 enum model_type_t {RANGE=0, ERROR=1, AREA=2, RANDOM=3};
 enum range_kernel_t {ADD_RANGE=0, SUB_RANGE=1, MUL_RANGE=2, DIV_RANGE=3, EXP_RANGE=4, LOG_RANGE=5};
