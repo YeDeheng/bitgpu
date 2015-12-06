@@ -6,12 +6,7 @@
 #include "raw_kernels.cuh"
 #include "error.cuh"
 #include "area.cuh"
-
-#ifdef USE_MC
-#include "mc_range.cuh"
-#else
 #include "range.cuh"
-#endif
 
 
 // wrapper for the range kernel

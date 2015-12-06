@@ -3,7 +3,6 @@
 UPPER_BOUND=128
 
 rm -f ./data/thresh.dat
-#for DESIGN in poly bellido caprasse
 for DESIGN in level1_linear poly diode bellido poly6 level1_saturation approx1 poly8 approx2 caprasse
 do
 	rm -f ../data/thresh_$DESIGN.dat

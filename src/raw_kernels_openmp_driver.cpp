@@ -17,6 +17,14 @@
 using namespace std;
 using namespace thrust;
 
+
+// Goal of this driver is to run the various error, range, area kernel on the multi-core CPU
+// and evaluate their speed. We use simple OpenMP parallelization.
+// 
+// Generates data for Table 2 in FPGA 2016 paper
+// "GPU-Accelerated High-Level Synthesis for Bitwidth Optimization of FPGA Datapaths"
+//
+
 int main(int argc, char** argv)
 {
 
@@ -67,14 +75,14 @@ int main(int argc, char** argv)
 	record_time(&t_start);
 
 	if((model_type_t)model == RANGE) {
-#pragma omp parallel for //shared(threads) private(i)
+#pragma omp parallel for
 		for(long int i=0; i<loop_count; i++) {
 			wrapper_range_kernel((range_kernel_t)operation, 
 					raw_pointer_cast(&(hv_x0[0])), raw_pointer_cast(&(hv_x1[0])), raw_pointer_cast(&(hv_y0[0])), raw_pointer_cast(&(hv_y1[0])), 
 					raw_pointer_cast(&(hv_out0[0])), raw_pointer_cast(&(hv_out1[0])), i);
 		}
 	} else if((model_type_t)model == ERROR) {
-#pragma omp parallel for //shared(threads) private(i)
+#pragma omp parallel for
 		for(long int i=0; i < loop_count; i++) {
 			wrapper_error_kernel((error_kernel_t)operation,
 					raw_pointer_cast(&(hv_x0[0])), raw_pointer_cast(&(hv_x1[0])), raw_pointer_cast(&(hv_e1[0])), 
@@ -83,14 +91,14 @@ int main(int argc, char** argv)
 					raw_pointer_cast(&(hv_pow_error[0])), t0, i);
 		}
 	} else if((model_type_t)model == AREA) {
-#pragma omp parallel for //shared(threads) private(i)
+#pragma omp parallel for
 		for(long int i=0; i < loop_count; i++) {
 			wrapper_area_kernel((area_kernel_t)operation,
 					raw_pointer_cast(&(hv_x0[0])), raw_pointer_cast(&(hv_x1[0])), raw_pointer_cast(&(hv_y0[0])), raw_pointer_cast(&(hv_y1[0])), 
 					raw_pointer_cast(&(hv_out0[0])), raw_pointer_cast(&(hv_out1[0])), raw_pointer_cast(&(hv_out_area[0])), t0, i);
 		}
 	} else if((model_type_t)model == RANDOM) {
-#pragma omp parallel for //shared(threads) private(i)
+#pragma omp parallel for 
 		for(long int i=0; i < loop_count; i++) {
 			wrapper_rand_kernel(i, i); // seed=i, iteration=i
 		}

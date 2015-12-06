@@ -1,5 +1,9 @@
 #!/bin/zsh -i
 
+# This script will translate the ASM format into a syntax suitable for Gappa evaluation
+# The code is designed to run simple interval analysis *without* sub-interval splits 
+# This can be converted into a compiler optimiztion to make it more robust
+
 bits=20
 source ~/.zshrc
 
@@ -23,9 +27,7 @@ touch $file.g
 cat $file.asm.bak | grep "LD," | sed "s/LD,\(.*\),\(.*\),\(.*\);/@fx\1 = fixed<-$bits,ne>;/" >> $file.g
 cat $file.asm.bak | grep "ADD\|SUB\|MUL\|DIV\|EXP\|LOG" | sed "s/.*,\(.*\),\(.*\),\(.*\);/@fx\1 = fixed<-$bits,ne>;/" >> $file.g
 
-#cat $file.asm.bak | grep "LD," | sed "s/LD,\(.*\),\(.*\),\(.*\);/var_\1 = float<ieee_64,ne>(var_\1);/" >> $file.g 
 cat $file.asm.bak | grep "LD," | sed "s/LD,\(.*\),\(.*\),\(.*\);/var_\1_fx = fx\1(var_\1);/" >> $file.g 
-#cat $file.asm.bak | grep "LD," | sed "s/LD,\(.*\),\(.*\),\(.*\);/var_\1_dbl = float<ieee_64,ne>(var_\1);/" >> $file.g 
 
 # handle compute 
 touch instr.tmp
@@ -45,21 +47,11 @@ sed -i "s/DIV,\(.*\),\(.*\),\(.*\);/var_\1_fx = fx\1 (var_\2_fx \/ var_\3_fx);/g
 sed -i "s/EXP,\(.*\),\(.*\),\(.*\);/var_\1_fx = fx\1 ( exp(var_\2_fx) );/g" instr.tmp
 sed -i "s/LOG,\(.*\),\(.*\),\(.*\);/var_\1_fx = fx\1 ( log(var_\2_fx) );/g" instr.tmp
 cat instr.tmp >> $file.g
-#cat $file.asm.bak | grep "ADD\|SUB\|MUL\|DIV\|EXP\|LOG" > instr.tmp
-#sed -i "s/ADD,\(.*\),\(.*\),\(.*\);/var_\1_dbl = float<ieee_64,ne> (var_\2_dbl + var_\3_dbl);/g" instr.tmp
-#sed -i "s/SUB,\(.*\),\(.*\),\(.*\);/var_\1_dbl = float<ieee_64,ne> (var_\2_dbl - var_\3_dbl);/g" instr.tmp
-#sed -i "s/MUL,\(.*\),\(.*\),\(.*\);/var_\1_dbl = float<ieee_64,ne> (var_\2_dbl * var_\3_dbl);/g" instr.tmp
-#sed -i "s/DIV,\(.*\),\(.*\),\(.*\);/var_\1_dbl = float<ieee_64,ne> (var_\2_dbl \/ var_\3_dbl);/g" instr.tmp
-#sed -i "s/EXP,\(.*\),\(.*\),\(.*\);/var_\1_dbl = float<ieee_64,ne> ( exp(var_\2_dbl) );/g" instr.tmp
-#sed -i "s/LOG,\(.*\),\(.*\),\(.*\);/var_\1_dbl = float<ieee_64,ne> ( log(var_\2_dbl) );/g" instr.tmp
-#cat instr.tmp >> $file.g
 
 
 # handle outputs
 echo "{" >> $file.g
 cat $file.asm.bak | grep "LD," | sed "s/LD,\(.*\),\(.*\),\(.*\);/var_\1 in \[ \2,\3\] -> /g" >> $file.g
-#cat $file.asm.bak | grep "LD," | sed "s/LD,\(.*\),\(.*\),\(.*\);/var_\1 in \[ \2,\3\] \/\\\\/g" >> $file.g
-#cat $file.asm.bak | grep "ST," | sed "s/ST,\(.*\),\(.*\),\(.*\);/\|var_\2\| >= 0x1p-53 -> /g" >> $file.g
 
 # count #store_instr to fit gappa syntax 
 st_cnt=`cat $file.asm.bak | grep "ST," | wc -l`
@@ -75,8 +67,6 @@ then
 else
     cat $file.asm.bak | grep "ST," | sed "s/ST,\(.*\),\(.*\),\(.*\);/(var_\2_fx-var_\2) in ? /g" >> $file.g
 fi
-#cat $file.asm.bak | grep "ST," | sed "s/ST,\(.*\),\(.*\),\(.*\);/var_\2_dbl -\/ var_\2 in ? \/\\\\/g" >> $file.g
-#cat $file.asm.bak | grep "ST," | sed "s/ST,\(.*\),\(.*\),\(.*\);/var_\2_fx -\/ var_\2 in ? /g" >> $file.g
 echo "}" >> $file.g
 
 popd &> /dev/null

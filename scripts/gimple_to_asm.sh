@@ -1,5 +1,8 @@
 #!/bin/zsh -i
 
+# This script will translate the C->GIMPLE syntax into an intermediate IR form suitable for this project.
+# This can be converted into a compiler optimiztion to make it more robust
+
 touch dummy.gimple
 rm -f *.gimple
 

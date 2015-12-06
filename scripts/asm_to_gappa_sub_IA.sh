@@ -1,5 +1,9 @@
 #!/bin/zsh -i
 
+# This script will translate the ASM format into a syntax suitable for Gappa evaluation
+# The goal is to run sub-interval analysis to generate tighter bounds.
+# This can be converted into a compiler optimiztion to make it more robust
+
 source ~/.zshrc
 
 touch dummy.svg dummy.gimple dummy.asm dummy.bak dummy.o dummy.tmp dummy.g

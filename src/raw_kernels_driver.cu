@@ -14,6 +14,12 @@
 #include "raw_kernels.cuh"
 #include "asm.h"
 
+// Goal of this driver is to run the various error, range, area kernel on the GPU
+// and evaluate their speed
+// 
+// Generates data for Table 2 in FPGA 2016 paper
+// "GPU-Accelerated High-Level Synthesis for Bitwidth Optimization of FPGA Datapaths"
+
 using namespace std;
 
 int main(int argc, char** argv)
