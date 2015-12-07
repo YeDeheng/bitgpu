@@ -110,7 +110,7 @@ After the benchmark `poly3` is setup correctly, one can supply the benchmark nam
 
 2. Run the pruning step to prune the search space of `poly3` using the prune driver. You must supply your own error threshold as desired by your application and an upper-limit for bitwidth search to help guides the search process.
   ```sh
-  /bin/prune_driver ./data/poly3/poly3.asm $ERROR_THRESH $UPPER_BOUND
+  ./bin/prune_driver ./data/poly3/poly3.asm $ERROR_THRESH $UPPER_BOUND
   ```
 
 Once executed, you should see something similar to the following: 
