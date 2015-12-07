@@ -113,7 +113,7 @@ After the benchmark `poly3` is setup correctly, one can supply the benchmark nam
   ./bin/prune_driver ./data/poly3/poly3.asm $ERROR_THRESH $UPPER_BOUND
   ```
 
-Once executed, you should see something similar to the following: 
+  Once executed, you should see something similar to the following: 
 
   ```
   benchmark:  poly3
