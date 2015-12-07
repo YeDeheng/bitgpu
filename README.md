@@ -113,7 +113,7 @@ After the benchmark `poly3` is setup correctly, one can supply the benchmark nam
   ./bin/prune_driver ./data/poly3/poly3.asm $ERROR_THRESH $UPPER_BOUND
   ```
 
-  Once executed, you should see something similar to the following: 
+  Once executed, you should see something similar to the following (in our example, the error threshold `$ERROR_THRESH` and the bitwidth upperbound `$UPPER_BOUND` used are `2e-4` and `25` respectively):
 
   ```
   benchmark:  poly3
@@ -143,9 +143,9 @@ After the benchmark `poly3` is setup correctly, one can supply the benchmark nam
 
   The GPU block_size, shown in the third column of the stdout log is purely a runtime optimization and does not affect correctness. 
   
-  For this `poly3` example, the fastest range analysis runtime using GPU is `?? ms`, while the runtime using CPU is `?? s`
+  For this `poly3` example,  assume the desired number of sub-intervals is 128, the fastest range analysis runtime using GPU is `0.04032 ms`, while the runtime using CPU is `50.463 ms`.
 
-4. Finally run the bitwidth allocation algorithm. Again, you must provide your desired application-specific error threshold *$ERROR_THRESH* and the GPU block configuration *$BLOCKS*.
+4. Finally run the bitwidth allocation algorithm. Again, you must provide your desired application-specific error threshold `$ERROR_THRESH` and the GPU block configuration `$BLOCKS`.
   ```sh
   ./bin/bitslice_driver ./data/poly3/poly3.asm $ERROR_THRESH 1 1 $BLOCKS
   ```
