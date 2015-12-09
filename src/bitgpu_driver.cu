@@ -84,7 +84,7 @@ int main(int argc, char** argv)
     DEVICE_COPY(pow_error, REAL);
     
     HOST(pow_bitgpu, int, stuff.INSTRUCTIONS);
-    create_pow_bitgpu(&hv_pow_bitgpu, stuff.INSTRUCTIONS, &hv_Na, &hv_Nb);
+    create_pow_bitslice(&hv_pow_bitgpu, stuff.INSTRUCTIONS, &hv_Na, &hv_Nb);
     DEVICE_COPY(pow_bitgpu, int);
 
     DEVICE_RAW(out_area, float, threads);
