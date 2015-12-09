@@ -12,7 +12,7 @@
   * and save in out_err array and out_area array respectively. Treat bitwidth combinations that result in error
   * larger than the user-supplied error constraint as invalid.
   */
-__forceinline__ __device__ void bitslice_core(REALV *temp_lo, REALV *temp_hi, 
+__forceinline__ __device__ void bitgpu_core(REALV *temp_lo, REALV *temp_hi, 
 		INTV *opcode, INTV *src0, INTV *src1, INTV *dest, int INSTRUCTIONS, 
 		REALV *pow_error, 
 		REAL *out_area, REAL *out_err, INTV *bits, REAL ERROR_THRESH)
@@ -135,11 +135,7 @@ __forceinline__ __device__ void bitslice_core(REALV *temp_lo, REALV *temp_hi,
 			*erroraddr = error0;
 			*out_err = error0;
 		}
-//		printf("after j=%d, dest[j]=%d, t0=%d, code=%d, area=%g, error=%.15f\n", 
-//			j, destj, t0, code, area_total, *erroraddr);
 	}
 	
-//	if(*out_area!=INT_MAX)
-//	printf("Finally, area=%g, error=%.15f, THRESH=%.15f\n", *out_area, *out_err, ERROR_THRESH);
 } 
 
