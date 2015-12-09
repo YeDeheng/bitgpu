@@ -125,15 +125,14 @@ int main(int argc, char** argv)
 	    }
     }
     hv_out_area_int.resize(good_sols);
-	//print result
+   
+    //print result
     cout << "good," << ERROR_THRESH << "," << good_sols << "," << search_space << "," << (100*good_sols/(double)search_space) << endl;
-
 
     //device_vector<int> histogram_val;
     //device_vector<int> histogram_cnt;
     //sparse_histogram(hv_out_area_int, histogram_val, histogram_cnt);
 
-    //ostream_iterator<float>(cout, ","));
     cout << hv_out_area[position] << ",";
     if(hv_out_area[position] == 0) {
 	    cout << 0;
@@ -155,7 +154,7 @@ int main(int argc, char** argv)
     cout << ",[";
     for(int j=0; j<stuff.INSTRUCTIONS; j++) 
     {
-	cout << hv_bits[j] << "-";
+	    cout << hv_bits[j] << "-";
     }
     cout << "]" << endl;
 } 

@@ -180,7 +180,7 @@ int main(int argc, char** argv)
 
     if(current_error>=ERROR_THRESH) {
 	    cout << "Pruning failed" << endl;
-//	    exit(1);
+	    exit(1);
     }
 
 
@@ -204,7 +204,6 @@ int main(int argc, char** argv)
     strcat(csv2,".asa");
     FILE *ifs2 = fopen(csv2,"w");
     for(int i=0; i<stuff.INSTRUCTIONS; i++) {
-	//fprintf (ifs2,"%d\t%d\t%d\t%d\t\t\t1\n",i,hv_Na[i],upper_bound_arg,upper_bound_arg);
 	fprintf (ifs2,"%d\t%d\t%d\t%d\t\t\t1\n",i,hv_Na[i],hv_Nb[i],hv_Nb[i]);
     }
     fclose(ifs2);

@@ -5,7 +5,13 @@
 #include "bitgpu.cuh"
 #include "range.cuh"
 
-
+/*
+ * Propagates intervals in dataflow order 
+ * Inputs: 1. custom IR encoded list of instructions in opcode, src0, src1, dest
+ *         2. the intervals in_lo, in_hi
+ *         3. miscellaneous metadata
+ * Outputs:  intervals out_lo and out_hi
+*/
 __global__ void range(REAL *in_lo, REAL *in_hi, REAL *out_lo, REAL *out_hi, 
         int *opcode, int *src0, int *src1, int* dest, int INSTRUCTIONS, 
 	int N_threads, int N_intervals,
@@ -13,8 +19,6 @@ __global__ void range(REAL *in_lo, REAL *in_hi, REAL *out_lo, REAL *out_hi,
 {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
 
-    //REAL temp_lo[REGISTERS]={0}; 
-    //REAL temp_hi[REGISTERS]={0};
     __shared__ REAL temp_lo[REGISTERS];//={0}; 
     __shared__ REAL temp_hi[REGISTERS];//={0};
 
@@ -44,7 +48,7 @@ __global__ void range(REAL *in_lo, REAL *in_hi, REAL *out_lo, REAL *out_hi,
                 sub_rangerule(temp_lo[src0[j]], temp_hi[src0[j]], 
                         temp_lo[src1[j]], temp_hi[src1[j]],
                         &temp_lo[dest[j]], &temp_hi[dest[j]]);
-            } else if(opcode[j] == LD) { // Loads can be processed in parallel ! 
+            } else if(opcode[j] == LD) { 
                 REAL in_lo_temp = in_lo[dest[j]]; 
                 REAL in_hi_temp = in_hi[dest[j]]; 
                 int powf_slice = (int)pow_intervals[inputs];

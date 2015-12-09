@@ -10,6 +10,10 @@
 
 using namespace std;
 
+/*
+ * Appropriately named file extracts useful information about dataflow expression
+ * generated from GIMPLE pass from the C function
+ */
 int main(int argc, char** argv)
 {
     if(argc!=2) 
