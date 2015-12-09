@@ -16,13 +16,13 @@ DEBUGOPT2 = -O3
 BIN_DIR = ./bin
 LIB_DIR = ./lib
 LIB_ASM = $(LIB_DIR)/libasm.so
-LIB_BITSLICE_CORE = $(LIB_DIR)/libbitslice_core.so
+LIB_BITSLICE_CORE = $(LIB_DIR)/libbitgpu_core.so
 CC_INCLUDE = -I./include -I/usr/local/cuda/include
 ASM_LDFLAGS = -L$(LIB_DIR) -lasm
-BITSLICE_CORE_LDFLAGS = -L$(LIB_DIR) -lbitslice_core
+BITSLICE_CORE_LDFLAGS = -L$(LIB_DIR) -lbitgpu_core
 LIB_LDFLAGS = $(ASM_LDFLAGS) $(BITSLICE_CORE_LDFLAGS) -lm
 
-all: $(BIN_DIR) $(LIB_DIR) libasm libbitslice_core range_driver bitslice_driver prune_driver
+all: $(BIN_DIR) $(LIB_DIR) libasm libbitgpu_core range_driver bitgpu_driver prune_driver
 
 $(BIN_DIR):
 ifneq ($(BIN_DIR),)
@@ -37,8 +37,8 @@ endif
 libasm: 
 	g++ -Wno-unused-result $(DEBUGOPT2) -DREAL=$(REAL) $(CC_INCLUDE) --shared -fPIC src/asm.cpp -o $(LIB_ASM)
 
-libbitslice_core: 
-	g++ $(DEBUGOPT2) -DREAL=$(REAL) $(CC_INCLUDE) --shared -fPIC -std=c++0x src/bitslice_core.cpp -o $(LIB_BITSLICE_CORE)
+libbitgpu_core: 
+	g++ $(DEBUGOPT2) -DREAL=$(REAL) $(CC_INCLUDE) --shared -fPIC -std=c++0x src/bitgpu_core.cpp -o $(LIB_BITSLICE_CORE)
 
 stuff:
 	g++ $(DEBUGOPT2) -DREAL=$(REAL) $(CC_INCLUDE) src/stuff.cpp -o $(BIN_DIR)/stuff $(ASM_LDFLAGS)
@@ -50,13 +50,13 @@ range_mc_driver:
 	nvcc -arch sm_20 $(DEBUGOPT1) -DREAL=$(REAL) $(CC_INCLUDE) src/range_driver.cu src/range.cu -o $(BIN_DIR)/range_mc_driver $(ASM_LDFLAGS) -DUSE_MC
 
 prune_driver:
-	g++  $(DEBUGOPT2) -DREAL=$(REAL) $(CC_INCLUDE) src/prune_driver.cpp src/bitslice_core.cpp -o $(BIN_DIR)/prune_driver $(LIB_LDFLAGS)
+	g++  $(DEBUGOPT2) -DREAL=$(REAL) $(CC_INCLUDE) src/prune_driver.cpp src/bitgpu_core.cpp -o $(BIN_DIR)/prune_driver $(LIB_LDFLAGS)
 
 prune_mc_driver:
-	g++  $(DEBUGOPT2) -DREAL=$(REAL) $(CC_INCLUDE) -std=c++0x src/prune_mc_driver.cpp src/bitslice_core.cpp -o $(BIN_DIR)/prune_mc_driver $(LIB_LDFLAGS) -DUSE_MC
+	g++  $(DEBUGOPT2) -DREAL=$(REAL) $(CC_INCLUDE) -std=c++0x src/prune_mc_driver.cpp src/bitgpu_core.cpp -o $(BIN_DIR)/prune_mc_driver $(LIB_LDFLAGS) -DUSE_MC
 
-bitslice_driver:
-	nvcc -arch sm_20 $(DEBUGOPT1) -DREAL=$(REAL) $(CC_INCLUDE) src/bitslice_driver.cu src/bitslice_error.cu -o $(BIN_DIR)/bitslice_driver $(ASM_LDFLAGS)
+bitgpu_driver:
+	nvcc -arch sm_20 $(DEBUGOPT1) -DREAL=$(REAL) $(CC_INCLUDE) src/bitgpu_driver.cu src/bitgpu_error.cu -o $(BIN_DIR)/bitgpu_driver $(ASM_LDFLAGS)
 
 test_enum:
 	g++ $(DEBUGOPT2) -DREAL=$(REAL) $(CC_INCLUDE) src/test_enum.cpp -o $(BIN_DIR)/test_enum $(ASM_LDFLAGS)
