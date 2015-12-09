@@ -7,7 +7,7 @@
 /* Self-defined Headers */
 #include "opcode.h"
 #include "asm.h"
-#include "bitslice_core.h"
+#include "bitgpu_core.h"
 
 using namespace std;
 using namespace thrust;
@@ -81,7 +81,7 @@ int main(int argc, char** argv)
 		    }
 	    }
 	    
-	    bitslice_core(&hv_in_lo, &hv_in_hi, 
+	    bitgpu_core(&hv_in_lo, &hv_in_hi, 
 			    &hv_opcode, &hv_src0, &hv_src1, &hv_dest, stuff.INSTRUCTIONS, 
 			    &hv_pow_error,
 			    &out_area, &current_error, &hv_bitwidth_array, ERROR_THRESH);
@@ -117,7 +117,7 @@ int main(int argc, char** argv)
 			    break;
 		    	}
 		    }
-		    bitslice_core(&hv_in_lo, &hv_in_hi, 
+		    bitgpu_core(&hv_in_lo, &hv_in_hi, 
 				    &hv_opcode, &hv_src0, &hv_src1, &hv_dest, stuff.INSTRUCTIONS, 
 				    &hv_pow_error,
 				    &out_area, &current_error, &hv_bitwidth_array, ERROR_THRESH);
@@ -151,7 +151,7 @@ int main(int argc, char** argv)
 		    }
 	    }
 	    // validate whether the bounds actually work
-	    bitslice_core(&hv_in_lo, &hv_in_hi, 
+	    bitgpu_core(&hv_in_lo, &hv_in_hi, 
 			    &hv_opcode, &hv_src0, &hv_src1, &hv_dest, stuff.INSTRUCTIONS, 
 			    &hv_pow_error,
 			    &out_area, &current_error, &hv_bitwidth_array, ERROR_THRESH);
@@ -173,7 +173,7 @@ int main(int argc, char** argv)
     }
     
     // final check
-    bitslice_core(&hv_in_lo, &hv_in_hi, 
+    bitgpu_core(&hv_in_lo, &hv_in_hi, 
 		    &hv_opcode, &hv_src0, &hv_src1, &hv_dest, stuff.INSTRUCTIONS, 
 		    &hv_pow_error,
 		    &out_area, &current_error, &hv_bitwidth_array, ERROR_THRESH);

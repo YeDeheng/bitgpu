@@ -25,7 +25,7 @@ do
 		export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib
 		for BLOCK in 32 64 128 256 512
 		do
-			./bin/bitslice_driver ./data/$DESIGN/$DESIGN.asm \
+			./bin/bitgpu_driver ./data/$DESIGN/$DESIGN.asm \
 				$ERROR_THRESH \
 				1 \
 				1 \

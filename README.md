@@ -44,7 +44,7 @@ To use the code, please install and configure:
     - For small benchmarks, you can simply brute-force all possible bitwidth combinations:
 
     ```sh
-    $ ./quality_time_bitslice.sh
+    $ ./quality_time_bitgpu.sh
     ```
 
     - For medium-sized and large benchmarks, you need to run ASA-assisted pruning first:
@@ -147,7 +147,7 @@ After the benchmark `poly3` is setup correctly, one can supply the benchmark nam
 
 4. Finally run the bitwidth allocation algorithm. Again, you must provide your desired application-specific error threshold `$ERROR_THRESH` and the GPU block configuration `$BLOCKS`.
   ```sh
-  ./bin/bitslice_driver ./data/poly3/poly3.asm $ERROR_THRESH 1 1 $BLOCKS
+  ./bin/bitgpu_driver ./data/poly3/poly3.asm $ERROR_THRESH 1 1 $BLOCKS
   ```
  
   You may also run this purely on the CPU using ASA alone. Here, we first generate the C file that calculates error and cost for ASA and then compiles ASA customized for this problem instance. Then we run the ASA algorithm to generate resulting bitwidth.

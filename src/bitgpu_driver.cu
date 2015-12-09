@@ -19,7 +19,7 @@ int main(int argc, char** argv)
 {
     if(argc!=6) 
     {
-        printf("Usage: bitslice_driver <asm file> <error-thresh> <step-size> <loops-per-thread> <block-size>\n");
+        printf("Usage: bitgpu_driver <asm file> <error-thresh> <step-size> <loops-per-thread> <block-size>\n");
         exit(1);
     }
 
@@ -83,9 +83,9 @@ int main(int argc, char** argv)
     create_pow_array(&hv_pow_error, 2, UPPER_BOUND + 1);
     DEVICE_COPY(pow_error, REAL);
     
-    HOST(pow_bitslice, int, stuff.INSTRUCTIONS);
-    create_pow_bitslice(&hv_pow_bitslice, stuff.INSTRUCTIONS, &hv_Na, &hv_Nb);
-    DEVICE_COPY(pow_bitslice, int);
+    HOST(pow_bitgpu, int, stuff.INSTRUCTIONS);
+    create_pow_bitgpu(&hv_pow_bitgpu, stuff.INSTRUCTIONS, &hv_Na, &hv_Nb);
+    DEVICE_COPY(pow_bitgpu, int);
 
     DEVICE_RAW(out_area, float, threads);
     DEVICE_RAW(out_err, float, threads);
@@ -96,10 +96,10 @@ int main(int argc, char** argv)
     cudaEventCreate(&stop1);
     cudaEventRecord(start1, 0);
 
-    bitslice_error<<< n_blocks, block_size >>>(d_in_lo, d_in_hi, 
+    bitgpu_error<<< n_blocks, block_size >>>(d_in_lo, d_in_hi, 
     		d_opcode, d_src0, d_src1, d_dest, stuff.INSTRUCTIONS, 
 		d_Na, d_Nb, threads, 
-		d_pow_bitslice, d_pow_error, 
+		d_pow_bitgpu, d_pow_error, 
 		d_out_area, d_out_err, ERROR_THRESH);
 
     cudaDeviceSynchronize();
@@ -143,7 +143,7 @@ int main(int argc, char** argv)
     HOST(bits, int, stuff.INSTRUCTIONS);
     for(int j=0; j<stuff.INSTRUCTIONS; j++)
     {
-	    int CommonCode = position/hv_pow_bitslice[j];
+	    int CommonCode = position/hv_pow_bitgpu[j];
 	    int t0 = hv_Na[j] + CommonCode%(hv_Nb[j]-hv_Na[j]+1);
 	    if(hv_opcode[j] != ST) {
 	    	hv_bits[hv_dest[j]] = t0;

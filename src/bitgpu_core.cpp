@@ -1,4 +1,4 @@
-#include "bitslice_core.h"
+#include "bitgpu_core.h"
 #include <algorithm>
 using namespace std;
 #include "range_host.h"
@@ -7,4 +7,4 @@ using namespace std;
 
 #define __device__
 #define __forceinline__
-#include "bitslice_core.cuh"
+#include "bitgpu_core.cuh"
