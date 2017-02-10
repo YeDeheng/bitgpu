@@ -1,0 +1,8 @@
+title: BitGPU
+description: GPU-Accelerated High-Level Synthesis for Bitwidth Optimization of FPGA Datapaths
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-dinky
+
+gems:
+  - jekyll-mentions
